@@ -1,4 +1,3 @@
-import './App.css'
 import { useAppDispatch, useAppSelector } from './hooks'
 import { setEmail } from './store'
 
