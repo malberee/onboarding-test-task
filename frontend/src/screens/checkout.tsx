@@ -1,43 +1,43 @@
+import { useEffect, useState } from 'react'
 import styled from 'styled-components'
 
 import { Button } from '@/components'
 import { useAppDispatch, useAppSelector } from '@/hooks'
+import { getPlans, type Plan } from '@/services/api'
 import { setSelectedPlan } from '@/store'
-
-// temp
-const PLANS = [
-  {
-    id: 'weekly',
-    name: '1 week',
-    amount: 699,
-    currency: 'eur',
-    period: 'week',
-  },
-  {
-    id: 'monthly',
-    name: '1 month',
-    amount: 1499,
-    currency: 'eur',
-    period: 'month',
-    popular: true,
-  },
-  {
-    id: 'yearly',
-    name: '1 year',
-    amount: 4999,
-    currency: 'eur',
-    period: 'year',
-  },
-]
 
 export const CheckoutScreen = () => {
   const selectedPlan = useAppSelector((state) => state.onboarding.selectedPlan)
   const dispatch = useAppDispatch()
 
-  return (
+  const [plans, setPlans] = useState<Plan[]>([])
+  const [isLoading, setIsLoading] = useState(false)
+  const [isError, setIsError] = useState(false)
+
+  useEffect(() => {
+    const fetchPlans = async () => {
+      try {
+        setIsLoading(true)
+        const response = await getPlans()
+        setPlans(response.plans)
+      } catch {
+        setIsError(true)
+      } finally {
+        setIsLoading(false)
+      }
+    }
+
+    fetchPlans()
+  }, [])
+
+  return isLoading ? (
+    <span>Loading...</span>
+  ) : isError ? (
+    <span>Error</span>
+  ) : (
     <Form>
       <PlansList>
-        {PLANS.map(({ id, name }) => (
+        {plans.map(({ id, name }) => (
           <PlanItem key={id}>
             <input
               type="radio"
