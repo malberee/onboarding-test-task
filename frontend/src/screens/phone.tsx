@@ -4,18 +4,20 @@ import 'react-phone-number-input/style.css'
 import styled from 'styled-components'
 
 import { Button, Input } from '@/components'
-import { useAppDispatch, useAppSelector } from '@/hooks'
+import { useAppDispatch, useAppSelector, useFlowNavigation } from '@/hooks'
 import { setPhone } from '@/store'
 
 export const PhoneScreen = () => {
   const phone = useAppSelector((state) => state.onboarding.phone)
   const dispatch = useAppDispatch()
+  const { next } = useFlowNavigation()
 
   const [isError, setIsError] = useState(false)
 
   const handleSubmit = () => {
     if (isPossiblePhoneNumber(phone)) {
       console.log(phone)
+      next()
     } else {
       setIsError(true)
     }

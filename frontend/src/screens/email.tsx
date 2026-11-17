@@ -2,12 +2,13 @@ import { useState } from 'react'
 import styled from 'styled-components'
 
 import { Button, Input } from '@/components'
-import { useAppDispatch, useAppSelector } from '@/hooks'
+import { useAppDispatch, useAppSelector, useFlowNavigation } from '@/hooks'
 import { setEmail } from '@/store'
 
 export const EmailScreen = () => {
   const email = useAppSelector((state) => state.onboarding.email)
   const dispatch = useAppDispatch()
+  const { next } = useFlowNavigation()
 
   const [error, setError] = useState<string | null>(null)
 
@@ -17,6 +18,7 @@ export const EmailScreen = () => {
 
     if (!hasError) {
       console.log(email)
+      next()
     } else {
       setError('some temp error')
     }
