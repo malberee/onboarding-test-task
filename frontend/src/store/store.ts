@@ -11,16 +11,18 @@ import {
 } from 'redux-persist'
 import storage from 'redux-persist/es/storage'
 
+import flowReducer from './flow.slice'
 import onboardingReducer from './onboarding.slice'
 
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['onboarding'],
+  whitelist: ['onboarding', 'flow'],
 }
 
 const rootReducer = combineReducers({
   onboarding: onboardingReducer,
+  flow: flowReducer,
 })
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)

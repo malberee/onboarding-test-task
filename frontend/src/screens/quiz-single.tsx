@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 import { Button } from '@/components'
-import { useAppDispatch, useAppSelector } from '@/hooks'
+import { useAppDispatch, useAppSelector, useFlowNavigation } from '@/hooks'
 import { setAnswer } from '@/store'
 
 const answers = ['Zhmerinka', 'New-York', 'Kyiv']
@@ -9,6 +9,7 @@ const answers = ['Zhmerinka', 'New-York', 'Kyiv']
 export const QuizSingleScreen = () => {
   const value = useAppSelector((state) => state.onboarding.answers.single)
   const dispatch = useAppDispatch()
+  const { next } = useFlowNavigation()
 
   return (
     <Form>
@@ -26,7 +27,9 @@ export const QuizSingleScreen = () => {
         </label>
       ))}
 
-      <Button type="button">Submit</Button>
+      <Button type="button" onClick={next}>
+        Submit
+      </Button>
     </Form>
   )
 }
