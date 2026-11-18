@@ -1,3 +1,5 @@
+import type { SyntheticEvent } from 'react'
+
 import { Button, Form } from '@/components'
 import { useAppDispatch, useAppSelector, useFlowNavigation } from '@/hooks'
 import { setQuizAnswer } from '@/store'
@@ -9,14 +11,16 @@ export const QuizSingleScreen = () => {
   const dispatch = useAppDispatch()
   const { next } = useFlowNavigation()
 
-  const handleSubmit = () => {
+  const handleSubmit = (e: SyntheticEvent<HTMLFormElement>) => {
+    e.preventDefault()
+
     if (value) {
       next()
     }
   }
 
   return (
-    <Form>
+    <Form onSubmit={handleSubmit}>
       {answers.map((answer) => (
         <label key={answer}>
           <input
@@ -31,9 +35,7 @@ export const QuizSingleScreen = () => {
         </label>
       ))}
 
-      <Button type="button" onClick={handleSubmit}>
-        Submit
-      </Button>
+      <Button>Submit</Button>
     </Form>
   )
 }

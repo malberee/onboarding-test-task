@@ -1,3 +1,5 @@
+import type { SyntheticEvent } from 'react'
+
 import { Button, Form } from '@/components'
 import { useAppDispatch, useAppSelector, useFlowNavigation } from '@/hooks'
 import { setQuizAnswer } from '@/store'
@@ -17,14 +19,16 @@ export const QuizMultiScreen = () => {
     dispatch(setQuizAnswer({ questionId: 'multi', answer: newValues }))
   }
 
-  const handleSubmit = () => {
+  const handleSubmit = (e: SyntheticEvent<HTMLFormElement>) => {
+    e.preventDefault()
+
     if (values.length > 0) {
       next()
     }
   }
 
   return (
-    <Form>
+    <Form onSubmit={handleSubmit}>
       {answers.map((answer) => (
         <label key={answer}>
           <input
@@ -37,9 +41,7 @@ export const QuizMultiScreen = () => {
           {answer}
         </label>
       ))}
-      <Button type="button" onClick={handleSubmit}>
-        Submit
-      </Button>
+      <Button>Submit</Button>
     </Form>
   )
 }

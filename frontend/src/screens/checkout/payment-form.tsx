@@ -47,29 +47,24 @@ const PaymentFormContent = () => {
       setErrorMessage(error.message ?? 'An unexpected error occurred.')
     }
 
-    const result = await verifyPayment()
-
-    if (result) {
-      console.log('payment veryfied')
-    }
+    await verifyPayment()
 
     setIsLoading(false)
   }
 
   return (
-    <Form>
+    <Wrapper>
       <PaymentElement />
 
       {errorMessage && <p>{errorMessage}</p>}
 
       <Button
-        type="submit"
         disabled={!selectedPlan || isLoading || isVerifying}
         onClick={handleSubmit}
       >
         {isLoading || isVerifying ? 'Processing...' : 'Pay'}
       </Button>
-    </Form>
+    </Wrapper>
   )
 }
 
@@ -81,7 +76,7 @@ export const PaymentForm = ({ clientSecret }: PaymentFormProps) => {
   )
 }
 
-const Form = styled.div`
+const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: ${({ theme }) => theme.spacing.lg};

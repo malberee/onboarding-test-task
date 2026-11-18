@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, type SyntheticEvent } from 'react'
 import PhoneInput, { isPossiblePhoneNumber } from 'react-phone-number-input'
 import 'react-phone-number-input/style.css'
 import styled from 'styled-components'
@@ -14,7 +14,9 @@ export const PhoneScreen = () => {
 
   const [isError, setIsError] = useState(false)
 
-  const handleSubmit = () => {
+  const handleSubmit = (e: SyntheticEvent<HTMLFormElement>) => {
+    e.preventDefault()
+
     if (phone && isPossiblePhoneNumber(phone)) {
       next()
     } else {
@@ -30,7 +32,7 @@ export const PhoneScreen = () => {
   }
 
   return (
-    <Form>
+    <Form onSubmit={handleSubmit}>
       <PhoneInput
         placeholder="Enter phone number"
         international
@@ -40,9 +42,7 @@ export const PhoneScreen = () => {
         onChange={handleChange}
       />
       {isError && <ErrorMessage>Invalid phone number</ErrorMessage>}
-      <Button type="button" onClick={handleSubmit}>
-        Submit
-      </Button>
+      <Button>Submit</Button>
     </Form>
   )
 }

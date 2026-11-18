@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, type SyntheticEvent } from 'react'
 import styled from 'styled-components'
 
 import { Button, Form, Input } from '@/components'
@@ -14,7 +14,8 @@ export const EmailScreen = () => {
 
   const [error, setError] = useState<string | null>(null)
 
-  const handleSubmit = () => {
+  const handleSubmit = (e: SyntheticEvent<HTMLFormElement>) => {
+    e.preventDefault()
     if (email && emailRegexp.test(email)) {
       next()
     } else {
@@ -28,7 +29,7 @@ export const EmailScreen = () => {
   }
 
   return (
-    <Form>
+    <Form onSubmit={handleSubmit}>
       <Input
         placeholder="Enter email"
         type="email"
@@ -36,9 +37,7 @@ export const EmailScreen = () => {
         onChange={(e) => handleChange(e.target.value)}
       />
       {error && <ErrorMessage>{error}</ErrorMessage>}
-      <Button type="button" onClick={handleSubmit}>
-        Submit
-      </Button>
+      <Button>Submit</Button>
     </Form>
   )
 }
