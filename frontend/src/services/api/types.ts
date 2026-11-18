@@ -1,10 +1,19 @@
-import { flowName } from './constants'
-
 export interface AppConfig {
   publishableKey: string
 }
 
-export type FlowName = (typeof flowName)[keyof typeof flowName]
+export enum FlowName {
+  DEFAULT = 'default',
+  SHORT = 'short',
+  EXPERIMENTAL = 'experimental',
+}
+
+export enum FetchStatus {
+  IDLE = 'idle',
+  LOADING = 'loading',
+  SUCCEEDED = 'succeeded',
+  FAILED = 'failed',
+}
 
 export interface Flow {
   name: 'default' | 'short' | 'experimental'
@@ -24,7 +33,7 @@ export interface PlansResponse {
   plans: Plan[]
 }
 
-export interface CreatePaymentRequest {
+export interface CreatePaymentIntentRequest {
   planId: string
   email: string
   phone: string
@@ -37,7 +46,7 @@ export type PaymentStatus =
   | 'succeeded'
   | 'canceled'
 
-export interface Payment {
+export interface PaymentIntent {
   id: string
   status: PaymentStatus
   planId: string | null
@@ -46,7 +55,7 @@ export interface Payment {
   errorMessage: string | null
 }
 
-export interface CreatePaymentResponse extends Payment {
+export interface CreatePaymentIntentResponse extends PaymentIntent {
   clientSecret: string | null
 }
 
