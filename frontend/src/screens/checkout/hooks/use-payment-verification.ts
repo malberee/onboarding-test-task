@@ -9,18 +9,25 @@ export const usePaymentVerification = () => {
   const { next } = useFlowNavigation()
   const dispatch = useAppDispatch()
   const [isVerifying, setIsVerifying] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
   const verifyPayment = async () => {
     setIsVerifying(true)
+
     if (!paymentId) {
       return null
     }
 
     const payment = await getPayment(paymentId)
+    console.log('payment: ', payment)
 
     if (payment.status === FetchStatus.SUCCEEDED) {
       dispatch(resetPayment())
       next()
+    }
+
+    if (payment.errorMessage) {
+      setError('Payment was canceled.')
     }
 
     setIsVerifying(false)
@@ -39,5 +46,5 @@ export const usePaymentVerification = () => {
     }
   }, [paymentId])
 
-  return { verifyPayment, isVerifying }
+  return { verifyPayment, isVerifying, error }
 }

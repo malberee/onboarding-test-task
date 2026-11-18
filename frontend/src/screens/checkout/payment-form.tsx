@@ -22,7 +22,11 @@ const PaymentFormContent = () => {
   const stripe = useStripe()
   const elements = useElements()
   const selectedPlan = useAppSelector((state) => state.onboarding.selectedPlan)
-  const { isVerifying, verifyPayment } = usePaymentVerification()
+  const {
+    isVerifying,
+    verifyPayment,
+    error: paymentVerificationError,
+  } = usePaymentVerification()
 
   const [isLoading, setIsLoading] = useState(false)
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
@@ -56,7 +60,10 @@ const PaymentFormContent = () => {
     <Wrapper>
       <PaymentElement />
 
-      {errorMessage && <p>{errorMessage}</p>}
+      {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
+      {paymentVerificationError && (
+        <ErrorMessage>{paymentVerificationError}</ErrorMessage>
+      )}
 
       <Button
         disabled={!selectedPlan || isLoading || isVerifying}
@@ -80,4 +87,8 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: ${({ theme }) => theme.spacing.lg};
+`
+
+const ErrorMessage = styled.span`
+  color: ${({ theme }) => theme.colors.danger};
 `
