@@ -25,7 +25,9 @@ export const AppInitializer = ({ children }: PropsWithChildren) => {
     <main>
       <Container>
         <p>
-          {FetchStatus.FAILED ? 'The page could not be loaded' : 'Loading...'}
+          {status === FetchStatus.FAILED
+            ? 'The page could not be loaded'
+            : 'Loading...'}
         </p>
         <Button onClick={() => window.location.reload()}>Try again</Button>
       </Container>
