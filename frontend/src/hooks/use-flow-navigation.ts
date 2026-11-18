@@ -9,7 +9,7 @@ export const useFlowNavigation = () => {
   const location = useLocation()
   const screens = useAppSelector((state) => state.flow.screens)
 
-  const currentScreenIndex = Object.keys(routes).findIndex(
+  const currentScreenIndex = screens.findIndex(
     (screen) => location.pathname.replace('/', '') === screen,
   )
 
