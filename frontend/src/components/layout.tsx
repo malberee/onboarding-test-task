@@ -3,6 +3,8 @@ import styled from 'styled-components'
 
 import { routes } from '@/constants'
 
+import { Container } from './container'
+
 export const Layout = () => {
   const isDev = import.meta.env.DEV
 
@@ -22,16 +24,6 @@ export const Layout = () => {
     </Container>
   )
 }
-
-const Container = styled.div`
-  max-width: ${({ theme }) => theme.breakpoints.tablet};
-  margin-inline: auto;
-  padding-inline: 20px;
-
-  @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
-    max-width: ${({ theme }) => theme.breakpoints.desktop};
-  }
-`
 
 const DevModeNavigation = styled.nav`
   position: fixed;
