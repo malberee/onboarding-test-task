@@ -19,6 +19,12 @@ export const QuizMultiScreen = () => {
     dispatch(setQuizAnswer({ questionId: 'multi', answer: newValues }))
   }
 
+  const handleSubmit = () => {
+    if (values.length > 0) {
+      next()
+    }
+  }
+
   return (
     <Form>
       {answers.map((answer) => (
@@ -33,7 +39,7 @@ export const QuizMultiScreen = () => {
           {answer}
         </label>
       ))}
-      <Button type="button" onClick={next}>
+      <Button type="button" onClick={handleSubmit}>
         Submit
       </Button>
     </Form>

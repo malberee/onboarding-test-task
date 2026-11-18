@@ -11,6 +11,12 @@ export const QuizSingleScreen = () => {
   const dispatch = useAppDispatch()
   const { next } = useFlowNavigation()
 
+  const handleSubmit = () => {
+    if (value) {
+      next()
+    }
+  }
+
   return (
     <Form>
       {answers.map((answer) => (
@@ -27,7 +33,7 @@ export const QuizSingleScreen = () => {
         </label>
       ))}
 
-      <Button type="button" onClick={next}>
+      <Button type="button" onClick={handleSubmit}>
         Submit
       </Button>
     </Form>
