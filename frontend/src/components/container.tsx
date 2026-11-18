@@ -10,11 +10,12 @@ const Wrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 16px;
+  gap: ${({ theme }) => theme.spacing.lg};
 
   max-width: ${({ theme }) => theme.breakpoints.tablet};
+
   margin-inline: auto;
-  padding-inline: 20px;
+  padding: ${({ theme }) => theme.spacing.xl};
 
   @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
     max-width: ${({ theme }) => theme.breakpoints.desktop};

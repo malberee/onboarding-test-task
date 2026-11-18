@@ -30,7 +30,7 @@ export const CheckoutScreen = () => {
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: ${({ theme }) => theme.spacing.lg};
   margin-inline: auto;
-  max-width: 320px;
+  max-width: ${({ theme }) => theme.breakpoints.mobile};
 `

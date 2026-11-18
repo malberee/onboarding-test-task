@@ -3,7 +3,7 @@ import PhoneInput, { isPossiblePhoneNumber } from 'react-phone-number-input'
 import 'react-phone-number-input/style.css'
 import styled from 'styled-components'
 
-import { Button, Input } from '@/components'
+import { Button, Form, Input } from '@/components'
 import { useAppDispatch, useAppSelector, useFlowNavigation } from '@/hooks'
 import { setPhone } from '@/store'
 
@@ -46,18 +46,6 @@ export const PhoneScreen = () => {
     </Form>
   )
 }
-
-const Form = styled.form`
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-
-  width: 100%;
-  max-width: 320px;
-
-  margin-inline: auto;
-  margin-top: 40px;
-`
 
 const ErrorMessage = styled.span`
   color: ${({ theme }) => theme.colors.danger};

@@ -84,5 +84,5 @@ export const PaymentForm = ({ clientSecret }: PaymentFormProps) => {
 const Form = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: ${({ theme }) => theme.spacing.lg};
 `

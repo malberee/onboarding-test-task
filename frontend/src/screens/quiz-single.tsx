@@ -1,6 +1,4 @@
-import styled from 'styled-components'
-
-import { Button } from '@/components'
+import { Button, Form } from '@/components'
 import { useAppDispatch, useAppSelector, useFlowNavigation } from '@/hooks'
 import { setQuizAnswer } from '@/store'
 
@@ -39,15 +37,3 @@ export const QuizSingleScreen = () => {
     </Form>
   )
 }
-
-const Form = styled.form`
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-
-  width: 100%;
-  max-width: 320px;
-
-  margin-inline: auto;
-  margin-top: 40px;
-`

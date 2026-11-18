@@ -30,5 +30,5 @@ const DevModeNavigation = styled.nav`
   bottom: 0;
 
   display: flex;
-  gap: 8px;
+  gap: ${({ theme }) => theme.spacing.sm};
 `
