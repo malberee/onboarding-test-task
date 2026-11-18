@@ -1,28 +1,34 @@
 import { useEffect, type PropsWithChildren } from 'react'
 import { useSearchParams } from 'react-router'
 
+import { Button, Container } from './components'
 import { useAppDispatch, useAppSelector } from './hooks'
-import type { FlowName } from './services/api'
+import { FetchStatus, FlowName } from './services/api'
 import { fetchFlow } from './store'
 
 export const AppInitializer = ({ children }: PropsWithChildren) => {
   const dispatch = useAppDispatch()
-  const { status, error } = useAppSelector((state) => state.flow)
+  const { status } = useAppSelector((state) => state.flow)
 
   const [params] = useSearchParams()
-  const flowName = (params.get('flow') || 'default') as FlowName
+  const flowName = (params.get('flow') || FlowName.DEFAULT) as FlowName
 
   useEffect(() => {
-    if (status === 'idle') {
+    if (status !== FetchStatus.LOADING && status !== FetchStatus.SUCCEEDED) {
       dispatch(fetchFlow(flowName))
     }
   }, [dispatch, flowName, status])
 
-  return status === 'succeeded' ? (
+  return status === FetchStatus.SUCCEEDED ? (
     children
   ) : (
     <main>
-      <p>{status === 'failed' ? error : 'loading...'}</p>
+      <Container>
+        <p>
+          {FetchStatus.FAILED ? 'The page could not be loaded' : 'Loading...'}
+        </p>
+        <Button onClick={() => window.location.reload()}>Try again</Button>
+      </Container>
     </main>
   )
 }

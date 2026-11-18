@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-import { Button } from '@/components'
+import { Button, Form } from '@/components'
 import { useAppDispatch, useAppSelector } from '@/hooks'
 import { type Plan } from '@/services/api'
 import { createPaymentIntent, setSelectedPlan } from '@/store'
@@ -35,18 +35,6 @@ export const PlanSelector = ({ plans }: PlanSelectorProps) => {
     </Form>
   )
 }
-
-const Form = styled.form`
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-
-  width: 100%;
-  max-width: 320px;
-
-  margin-inline: auto;
-  margin-top: 40px;
-`
 
 const PlansList = styled.div`
   display: flex;

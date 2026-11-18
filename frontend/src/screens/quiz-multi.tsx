@@ -1,13 +1,13 @@
-import styled from 'styled-components'
+import type { SyntheticEvent } from 'react'
 
-import { Button } from '@/components'
+import { Button, Form } from '@/components'
 import { useAppDispatch, useAppSelector, useFlowNavigation } from '@/hooks'
-import { setAnswer } from '@/store'
+import { setQuizAnswer } from '@/store'
 
 const answers = ['Zhmerinka', 'New-York', 'Kyiv']
 
 export const QuizMultiScreen = () => {
-  const values = useAppSelector((state) => state.onboarding.answers.multi)
+  const values = useAppSelector((state) => state.onboarding.quiz_multi)
   const dispatch = useAppDispatch()
   const { next } = useFlowNavigation()
 
@@ -16,11 +16,19 @@ export const QuizMultiScreen = () => {
       ? [...values, key]
       : values.filter((item) => item !== key)
 
-    dispatch(setAnswer({ questionId: 'multi', answer: newValues }))
+    dispatch(setQuizAnswer({ questionId: 'multi', answer: newValues }))
+  }
+
+  const handleSubmit = (e: SyntheticEvent<HTMLFormElement>) => {
+    e.preventDefault()
+
+    if (values.length > 0) {
+      next()
+    }
   }
 
   return (
-    <Form>
+    <Form onSubmit={handleSubmit}>
       {answers.map((answer) => (
         <label key={answer}>
           <input
@@ -33,21 +41,7 @@ export const QuizMultiScreen = () => {
           {answer}
         </label>
       ))}
-      <Button type="button" onClick={next}>
-        Submit
-      </Button>
+      <Button>Submit</Button>
     </Form>
   )
 }
-
-const Form = styled.form`
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-
-  width: 100%;
-  max-width: 320px;
-
-  margin-inline: auto;
-  margin-top: 40px;
-`

@@ -1,9 +1,9 @@
-import { useState } from 'react'
+import { useState, type SyntheticEvent } from 'react'
 import PhoneInput, { isPossiblePhoneNumber } from 'react-phone-number-input'
 import 'react-phone-number-input/style.css'
 import styled from 'styled-components'
 
-import { Button, Input } from '@/components'
+import { Button, Form, Input } from '@/components'
 import { useAppDispatch, useAppSelector, useFlowNavigation } from '@/hooks'
 import { setPhone } from '@/store'
 
@@ -14,9 +14,10 @@ export const PhoneScreen = () => {
 
   const [isError, setIsError] = useState(false)
 
-  const handleSubmit = () => {
-    if (isPossiblePhoneNumber(phone)) {
-      console.log(phone)
+  const handleSubmit = (e: SyntheticEvent<HTMLFormElement>) => {
+    e.preventDefault()
+
+    if (phone && isPossiblePhoneNumber(phone)) {
       next()
     } else {
       setIsError(true)
@@ -31,34 +32,20 @@ export const PhoneScreen = () => {
   }
 
   return (
-    <Form>
+    <Form onSubmit={handleSubmit}>
       <PhoneInput
         placeholder="Enter phone number"
         international
         countryCallingCodeEditable={false}
         inputComponent={Input}
-        value={phone}
+        value={phone ?? ''}
         onChange={handleChange}
       />
       {isError && <ErrorMessage>Invalid phone number</ErrorMessage>}
-      <Button type="button" onClick={handleSubmit}>
-        Submit
-      </Button>
+      <Button>Submit</Button>
     </Form>
   )
 }
-
-const Form = styled.form`
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-
-  width: 100%;
-  max-width: 320px;
-
-  margin-inline: auto;
-  margin-top: 40px;
-`
 
 const ErrorMessage = styled.span`
   color: ${({ theme }) => theme.colors.danger};

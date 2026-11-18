@@ -1,7 +1,7 @@
 import { Route, Routes } from 'react-router'
 
 import { Layout } from './components'
-import { routes, theme } from './constants'
+import { routes } from './constants'
 import { InitialRedirect } from './initial-redirect'
 import {
   CheckoutScreen,
@@ -14,7 +14,7 @@ import {
 
 function App() {
   return (
-    <main style={{ backgroundColor: theme.colors.background }}>
+    <main>
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<InitialRedirect />} />
