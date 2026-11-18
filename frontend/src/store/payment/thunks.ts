@@ -34,7 +34,6 @@ export const createPaymentIntent = createAsyncThunk<
   try {
     return await createPayment(data, idempotencyKey)
   } catch (error) {
-    console.log('error: ', error)
     return rejectWithValue(
       error instanceof Error ? error.message : 'Failed to create payment',
     )
