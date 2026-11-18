@@ -14,12 +14,12 @@ export const QuizSingleScreen = () => {
   return (
     <Form>
       {answers.map((answer) => (
-        <label>
+        <label key={answer}>
           <input
             type="radio"
             name="quiz"
             checked={value === answer}
-            onClick={() =>
+            onChange={() =>
               dispatch(setQuizAnswer({ questionId: 'single', answer }))
             }
           />
