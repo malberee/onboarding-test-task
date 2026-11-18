@@ -15,8 +15,7 @@ export const PhoneScreen = () => {
   const [isError, setIsError] = useState(false)
 
   const handleSubmit = () => {
-    if (isPossiblePhoneNumber(phone)) {
-      console.log(phone)
+    if (phone && isPossiblePhoneNumber(phone)) {
       next()
     } else {
       setIsError(true)
@@ -37,7 +36,7 @@ export const PhoneScreen = () => {
         international
         countryCallingCodeEditable={false}
         inputComponent={Input}
-        value={phone}
+        value={phone ?? ''}
         onChange={handleChange}
       />
       {isError && <ErrorMessage>Invalid phone number</ErrorMessage>}

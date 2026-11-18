@@ -1,28 +1,22 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
 
-interface Answers {
-  single: string | null
-  multi: string[]
-}
-
-type AnswerPayload =
+type QuizAnswerPayload =
   | { questionId: 'single'; answer: string }
   | { questionId: 'multi'; answer: string[] }
 
 interface OnboardingState {
-  phone: string
-  email: string
-  answers: Answers
+  phone: string | null
+  email: string | null
+  quiz_single: string | null
+  quiz_multi: string[]
   selectedPlan: string | null
 }
 
 const initialState: OnboardingState = {
-  phone: '',
-  email: '',
-  answers: {
-    single: null,
-    multi: [],
-  },
+  phone: null,
+  email: null,
+  quiz_single: null,
+  quiz_multi: [],
   selectedPlan: null,
 }
 
@@ -36,26 +30,20 @@ const onboardingSlice = createSlice({
     setEmail: (state, action: PayloadAction<string>) => {
       state.email = action.payload
     },
-    setAnswer: (state, action: PayloadAction<AnswerPayload>) => {
+    setQuizAnswer: (state, action: PayloadAction<QuizAnswerPayload>) => {
       if (action.payload.questionId === 'single') {
-        state.answers.single = action.payload.answer
+        state.quiz_single = action.payload.answer
       } else {
-        state.answers.multi = action.payload.answer
+        state.quiz_multi = action.payload.answer
       }
     },
     setSelectedPlan: (state, action: PayloadAction<string>) => {
       state.selectedPlan = action.payload
     },
-    resetOnboarding: () => initialState,
   },
 })
 
-export const {
-  setPhone,
-  setEmail,
-  setAnswer,
-  setSelectedPlan,
-  resetOnboarding,
-} = onboardingSlice.actions
+export const { setPhone, setEmail, setQuizAnswer, setSelectedPlan } =
+  onboardingSlice.actions
 
-export default onboardingSlice.reducer
+export const onboardingReducer = onboardingSlice.reducer

@@ -2,12 +2,12 @@ import styled from 'styled-components'
 
 import { Button } from '@/components'
 import { useAppDispatch, useAppSelector, useFlowNavigation } from '@/hooks'
-import { setAnswer } from '@/store'
+import { setQuizAnswer } from '@/store'
 
 const answers = ['Zhmerinka', 'New-York', 'Kyiv']
 
 export const QuizMultiScreen = () => {
-  const values = useAppSelector((state) => state.onboarding.answers.multi)
+  const values = useAppSelector((state) => state.onboarding.quiz_multi)
   const dispatch = useAppDispatch()
   const { next } = useFlowNavigation()
 
@@ -16,7 +16,7 @@ export const QuizMultiScreen = () => {
       ? [...values, key]
       : values.filter((item) => item !== key)
 
-    dispatch(setAnswer({ questionId: 'multi', answer: newValues }))
+    dispatch(setQuizAnswer({ questionId: 'multi', answer: newValues }))
   }
 
   return (

@@ -2,12 +2,12 @@ import styled from 'styled-components'
 
 import { Button } from '@/components'
 import { useAppDispatch, useAppSelector, useFlowNavigation } from '@/hooks'
-import { setAnswer } from '@/store'
+import { setQuizAnswer } from '@/store'
 
 const answers = ['Zhmerinka', 'New-York', 'Kyiv']
 
 export const QuizSingleScreen = () => {
-  const value = useAppSelector((state) => state.onboarding.answers.single)
+  const value = useAppSelector((state) => state.onboarding.quiz_single)
   const dispatch = useAppDispatch()
   const { next } = useFlowNavigation()
 
@@ -20,7 +20,7 @@ export const QuizSingleScreen = () => {
             name="quiz"
             checked={value === answer}
             onClick={() =>
-              dispatch(setAnswer({ questionId: 'single', answer }))
+              dispatch(setQuizAnswer({ questionId: 'single', answer }))
             }
           />
           {answer}
