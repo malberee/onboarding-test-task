@@ -1,40 +1,19 @@
-import { useEffect, useState } from 'react'
 import styled from 'styled-components'
 
 import { Button } from '@/components'
 import { useAppDispatch, useAppSelector } from '@/hooks'
-import { getPlans, type Plan } from '@/services/api'
-import { setSelectedPlan } from '@/store'
+import { type Plan } from '@/services/api'
+import { createPaymentIntent, setSelectedPlan } from '@/store'
 
-export const CheckoutScreen = () => {
+interface PlanSelectorProps {
+  plans: Plan[]
+}
+
+export const PlanSelector = ({ plans }: PlanSelectorProps) => {
   const selectedPlan = useAppSelector((state) => state.onboarding.selectedPlan)
   const dispatch = useAppDispatch()
 
-  const [plans, setPlans] = useState<Plan[]>([])
-  const [isLoading, setIsLoading] = useState(false)
-  const [isError, setIsError] = useState(false)
-
-  useEffect(() => {
-    const fetchPlans = async () => {
-      try {
-        setIsLoading(true)
-        const response = await getPlans()
-        setPlans(response.plans)
-      } catch {
-        setIsError(true)
-      } finally {
-        setIsLoading(false)
-      }
-    }
-
-    fetchPlans()
-  }, [])
-
-  return isLoading ? (
-    <span>Loading...</span>
-  ) : isError ? (
-    <span>Error</span>
-  ) : (
+  return (
     <Form>
       <PlansList>
         {plans.map(({ id, name }) => (
@@ -50,7 +29,9 @@ export const CheckoutScreen = () => {
           </PlanItem>
         ))}
       </PlansList>
-      <Button type="button">Submit</Button>
+      <Button type="button" onClick={() => dispatch(createPaymentIntent())}>
+        Submit
+      </Button>
     </Form>
   )
 }

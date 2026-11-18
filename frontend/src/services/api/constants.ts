@@ -4,9 +4,3 @@ export const apiEndpoints = {
   plans: '/plans',
   payments: '/payments',
 }
-
-export const flowName = {
-  DEFAULT: 'default',
-  SHORT: 'short',
-  EXPERIMENTAL: 'experimental',
-} as const

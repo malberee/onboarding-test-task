@@ -1,16 +1,16 @@
 import { apiRequest } from './client'
 import { apiEndpoints } from './constants'
 import type {
-  CreatePaymentRequest,
-  CreatePaymentResponse,
-  Payment,
+  CreatePaymentIntentRequest,
+  CreatePaymentIntentResponse,
+  PaymentIntent,
 } from './types'
 
 export const createPayment = (
-  data: CreatePaymentRequest,
+  data: CreatePaymentIntentRequest,
   idempotencyKey: string,
 ) => {
-  return apiRequest<CreatePaymentResponse>(apiEndpoints.payments, {
+  return apiRequest<CreatePaymentIntentResponse>(apiEndpoints.payments, {
     method: 'POST',
     body: JSON.stringify(data),
     headers: {
@@ -21,5 +21,5 @@ export const createPayment = (
 }
 
 export const getPayment = (id: string) => {
-  return apiRequest<Payment>(`${apiEndpoints.payments}/${id}`)
+  return apiRequest<PaymentIntent>(`${apiEndpoints.payments}/${id}`)
 }

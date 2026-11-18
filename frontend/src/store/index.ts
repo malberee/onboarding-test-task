@@ -1,3 +1,4 @@
 export * from './store'
-export * from './onboarding.slice'
-export * from './flow.slice'
+export * from './flow'
+export * from './onboarding'
+export * from './payment'
