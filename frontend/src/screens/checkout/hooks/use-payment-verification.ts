@@ -1,14 +1,12 @@
 import { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router'
 
-import { routes } from '@/constants'
-import { useAppDispatch, useAppSelector } from '@/hooks'
+import { useAppDispatch, useAppSelector, useFlowNavigation } from '@/hooks'
 import { FetchStatus, getPayment } from '@/services/api'
 import { resetPayment } from '@/store'
 
 export const usePaymentVerification = () => {
-  const navigate = useNavigate()
   const paymentId = useAppSelector((state) => state.payment.paymentIntent?.id)
+  const { next } = useFlowNavigation()
   const dispatch = useAppDispatch()
   const [isVerifying, setIsVerifying] = useState(false)
 
@@ -22,7 +20,7 @@ export const usePaymentVerification = () => {
 
     if (payment.status === FetchStatus.SUCCEEDED) {
       dispatch(resetPayment())
-      navigate(routes.success)
+      next()
     }
 
     setIsVerifying(false)

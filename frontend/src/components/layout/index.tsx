@@ -3,7 +3,8 @@ import styled from 'styled-components'
 
 import { routes } from '@/constants'
 
-import { Container } from './container'
+import { Container } from '../container'
+import { ProgressBar } from './progress-bar'
 
 export const Layout = () => {
   const isDev = import.meta.env.DEV
@@ -20,6 +21,7 @@ export const Layout = () => {
           <Link to={routes.checkout}>checkout</Link>
         </DevModeNavigation>
       )}
+      <ProgressBar />
       <Outlet />
     </Container>
   )
