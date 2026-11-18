@@ -2,7 +2,7 @@ import { useEffect, type PropsWithChildren } from 'react'
 import { useSearchParams } from 'react-router'
 
 import { useAppDispatch, useAppSelector } from './hooks'
-import type { FlowName } from './services/api'
+import { FetchStatus, FlowName } from './services/api'
 import { fetchFlow } from './store'
 
 export const AppInitializer = ({ children }: PropsWithChildren) => {
@@ -10,19 +10,19 @@ export const AppInitializer = ({ children }: PropsWithChildren) => {
   const { status, error } = useAppSelector((state) => state.flow)
 
   const [params] = useSearchParams()
-  const flowName = (params.get('flow') || 'default') as FlowName
+  const flowName = (params.get('flow') || FlowName.DEFAULT) as FlowName
 
   useEffect(() => {
-    if (status === 'idle') {
+    if (status === FetchStatus.IDLE) {
       dispatch(fetchFlow(flowName))
     }
   }, [dispatch, flowName, status])
 
-  return status === 'succeeded' ? (
+  return status === FetchStatus.SUCCEEDED ? (
     children
   ) : (
     <main>
-      <p>{status === 'failed' ? error : 'loading...'}</p>
+      <p>{FetchStatus.FAILED ? error : 'Loading...'}</p>
     </main>
   )
 }

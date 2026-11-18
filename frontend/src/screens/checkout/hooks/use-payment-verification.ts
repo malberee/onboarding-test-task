@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router'
 
 import { routes } from '@/constants'
 import { useAppDispatch, useAppSelector } from '@/hooks'
-import { getPayment } from '@/services/api'
+import { FetchStatus, getPayment } from '@/services/api'
 import { resetPayment } from '@/store'
 
 export const usePaymentVerification = () => {
@@ -20,7 +20,7 @@ export const usePaymentVerification = () => {
 
     const payment = await getPayment(paymentId)
 
-    if (payment.status === 'succeeded') {
+    if (payment.status === FetchStatus.SUCCEEDED) {
       dispatch(resetPayment())
       navigate(routes.success)
     }
