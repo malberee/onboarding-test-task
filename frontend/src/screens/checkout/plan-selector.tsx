@@ -16,7 +16,7 @@ export const PlanSelector = ({ plans }: PlanSelectorProps) => {
   return (
     <Form>
       <PlansList>
-        {plans.map(({ id, name }) => (
+        {plans.map(({ id, name, amount, currency }) => (
           <PlanItem key={id}>
             <input
               type="radio"
@@ -25,7 +25,11 @@ export const PlanSelector = ({ plans }: PlanSelectorProps) => {
               checked={selectedPlan === id}
               onChange={(e) => dispatch(setSelectedPlan(e.target.value))}
             />
-            {name}
+            <span>{name}</span>
+            <span>
+              {amount / 100}
+              {currency}
+            </span>
           </PlanItem>
         ))}
       </PlansList>
@@ -43,6 +47,7 @@ const PlansList = styled.div`
 
 const PlanItem = styled.label`
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 
