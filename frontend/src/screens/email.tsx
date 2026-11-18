@@ -5,22 +5,20 @@ import { Button, Input } from '@/components'
 import { useAppDispatch, useAppSelector, useFlowNavigation } from '@/hooks'
 import { setEmail } from '@/store'
 
+const emailRegexp = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
+
 export const EmailScreen = () => {
-  const email = useAppSelector((state) => state.onboarding.email)
+  const email = useAppSelector((state) => state.onboarding.email) ?? ''
   const dispatch = useAppDispatch()
   const { next } = useFlowNavigation()
 
   const [error, setError] = useState<string | null>(null)
 
   const handleSubmit = () => {
-    // temp
-    const hasError = false
-
-    if (!hasError) {
-      console.log(email)
+    if (email && emailRegexp.test(email)) {
       next()
     } else {
-      setError('some temp error')
+      setError('Invalid email')
     }
   }
 
@@ -34,6 +32,7 @@ export const EmailScreen = () => {
       <Input
         placeholder="Enter email"
         type="email"
+        value={email}
         onChange={(e) => handleChange(e.target.value)}
       />
       {error && <ErrorMessage>{error}</ErrorMessage>}
